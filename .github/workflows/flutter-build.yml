@@ -12,25 +12,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout source
+        uses: actions/checkout@v4
 
-      # Step 1: Install Flutter
-      - name: Set up Flutter
+      - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.1' # Ganti dengan versi yang kamu pakai
+          flutter-version: '3.32.6'  # Sesuaikan dengan versimu
+          channel: 'stable'
 
-      # Step 2: Install dependencies
       - name: Install dependencies
         run: flutter pub get
 
-      # Step 3: Build APK (atau web, atau lainnya)
       - name: Build APK
-        run: flutter build apk --release
+        run: flutter build apk
 
-      # Step 4 (Opsional): Upload hasil build sebagai artifact
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+      # Jika ingin juga build web, bisa tambah ini
+      # - name: Build Web
+      #   run: flutter build web
